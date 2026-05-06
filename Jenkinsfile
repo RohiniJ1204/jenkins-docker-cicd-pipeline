@@ -6,13 +6,7 @@ pipeline {
     }
 
     stages {
-
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/RohiniJ1204/project1-practice.git'
-            }
-        }
-
+        
         stage('Build Containers') {
             steps {
                 sh 'docker-compose build'
