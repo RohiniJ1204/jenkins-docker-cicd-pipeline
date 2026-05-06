@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User App</title>
+</head>
+<body>
+
+<h2>Add User</h2>
+
+<input type="text" id="name" placeholder="Name" />
+<input type="email" id="email" placeholder="Email" />
+
+<br><br>
+
+<button onclick="saveUser()">Save User</button>
+<button onclick="getUsers()">Show Users</button>
+
+<ul id="userList"></ul>
+
+<script>
+function saveUser() {
+    fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("User Saved!");
+    })
+    .catch(err => console.error(err));
+}
+
+function getUsers() {
+    fetch('/api/users')
+    .then(res => res.json())
+    .then(data => {
+        let list = document.getElementById('userList');
+        list.innerHTML = '';
+
+        data.forEach(user => {
+            let li = document.createElement('li');
+            li.innerText = user.name + " - " + user.email;
+            list.appendChild(li);
+        });
+    })
+    .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>
