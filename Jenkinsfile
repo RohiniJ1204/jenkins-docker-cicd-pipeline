@@ -5,19 +5,19 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                sh 'docker compose down || true'
+                sh 'docker-compose down || true'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'docker compose build'
+                sh 'docker-compose build'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker-compose up -d'
                 sh 'sleep 10'
                 sh 'curl -f http://localhost || exit 1'
             }
@@ -43,9 +43,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'docker compose down'
-                sh 'docker compose pull'
-                sh 'docker compose up -d'
+                sh 'docker-compose down'
+                sh 'docker-compose pull'
+                sh 'docker-compose up -d'
             }
         }
     }
@@ -56,7 +56,7 @@ pipeline {
         }
 
         failure {
-            sh 'docker compose logs'
+            sh 'docker-compose logs'
             echo 'Pipeline failed!'
         }
     }
