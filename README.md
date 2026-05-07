@@ -59,12 +59,12 @@ User → Nginx → Frontend / Backend
 │   └── server.js
 ├── nginx
 │   └── nginx.conf
-└── screenshots
-    ├── application-ui.png
-    ├── docker-containers.png
-    ├── docker-hub.png
-    ├── jenkins-console-output.png
-    └── jenkins-pipeline-stage-view.png
+├──screenshots
+│    ├── application-ui.png
+│   ├── docker-containers.png
+│   ├── docker-hub.png
+│    ├── jenkins-console-output.png
+│    └── jenkins-pipeline-stage-view.png
 ├── README.md
 ```
 
