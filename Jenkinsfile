@@ -1,25 +1,46 @@
 pipeline {
     agent any
 
+    environment {
+        PROJECT_NAME = "myapp"
+    }
+
     stages {
 
         stage('Cleanup') {
             steps {
-                sh 'docker-compose down || true'
+                sh """
+                echo "Stopping old containers..."
+                docker-compose -p ${PROJECT_NAME} down --remove-orphans || true
+                """
             }
         }
 
         stage('Build') {
             steps {
-                sh 'docker-compose build'
+                sh """
+                echo "Building images..."
+                docker-compose -p ${PROJECT_NAME} build
+                """
+            }
+        }
+
+        stage('Start for Test') {
+            steps {
+                sh """
+                echo "Starting containers..."
+                docker-compose -p ${PROJECT_NAME} up -d --build
+                sleep 10
+                """
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker-compose up -d'
-                sh 'sleep 10'
-                sh 'curl -f http://localhost || exit 1'
+                sh """
+                echo "Running health check..."
+                curl -f http://localhost || exit 1
+                """
             }
         }
 
@@ -31,21 +52,25 @@ pipeline {
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
 
-                    sh '''
+                    sh """
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
                     docker push rohini1204/web-frontend
                     docker push rohini1204/api-backend
-                    '''
+                    """
                 }
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy (Clean Restart)') {
             steps {
-                sh 'docker-compose down'
-                sh 'docker-compose pull'
-                sh 'docker-compose up -d'
+                sh """
+                echo "Final deployment restart..."
+
+                docker-compose -p ${PROJECT_NAME} down --remove-orphans || true
+                docker-compose -p ${PROJECT_NAME} pull
+                docker-compose -p ${PROJECT_NAME} up -d --build
+                """
             }
         }
     }
@@ -56,8 +81,11 @@ pipeline {
         }
 
         failure {
-            sh 'docker-compose logs'
+            sh """
+            echo "Fetching logs..."
+            docker-compose logs || true
+            """
             echo 'Pipeline failed!'
         }
     }
-}  
+}
