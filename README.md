@@ -67,3 +67,57 @@ Build → Test → Push → Deploy
 git clone https://github.com/your-username/jenkins-docker-cicd-pipeline.git
 cd jenkins-docker-cicd-pipeline
 docker compose up -d
+
+---
+
+## 📸 Screenshots
+
+### Jenkins Pipeline Overview
+![Pipeline](screenshots/jenkins-pipeline-stage-view.png)
+
+### Console Output
+![Console](screenshots/jenkins-console-output.png)
+
+### Docker Containers
+![Containers](screenshots/docker-containers.png)
+
+### Docker Hub Images
+![DockerHub](screenshots/docker-hub.png)
+
+### Application UI
+![UI](screenshots/application-ui.png)
+
+---
+
+## 🧠 Key DevOps Concepts Demonstrated
+
+- Continuous Integration & Continuous Deployment (CI/CD)
+- Docker containerization
+- Automated build & deployment pipelines
+- Container lifecycle management
+- Docker Compose orchestration
+- Jenkins pipeline automation
+- Health check validation
+- Docker image versioning & registry integration
+
+---
+
+## 🚀 Future Enhancements
+
+- Kubernetes deployment support
+- Blue-Green deployment strategy
+- Monitoring with Prometheus & Grafana
+- Automated rollback on deployment failure
+- Terraform-based infrastructure provisioning
+
+---
+
+## 👨‍💻 Author
+
+**Rohini Javvaji**
+Aspiring DevOps Engineer
+- GitHub: https://github.com/RohiniJ1204
+
+
+
+
