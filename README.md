@@ -15,14 +15,16 @@ All services run inside isolated Docker containers to ensure consistency and sca
 
 ### System Flow
 
-User → Nginx → Frontend / Backend  
+```bash
+
+  User → Nginx → Frontend / Backend  
       ↓  
   Docker Compose (Container Orchestration)  
       ↓  
   Jenkins CI/CD Pipeline (Automation)  
       ↓  
   Docker Hub (Image Registry) 
-
+```
 ---
 
 ## 🛠️ Tech Stack
@@ -63,7 +65,6 @@ Build → Test → Push → Deploy
 
 ## 🚀 How to Run Locally
 
-```bash
 git clone https://github.com/your-username/jenkins-docker-cicd-pipeline.git
 cd jenkins-docker-cicd-pipeline
 docker compose up -d
